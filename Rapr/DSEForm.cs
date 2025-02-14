@@ -67,6 +67,7 @@ namespace Rapr
             this.Font = SystemFonts.MessageBoxFont;
 
             this.InitializeComponent();
+            MicaHelper.ApplyMicaEffect(this);
 
             this.Icon = DSEFormHelper.ExtractAssociatedIcon(Application.ExecutablePath);
             this.BuildLanguageMenu();
@@ -95,15 +96,9 @@ namespace Rapr
         {
             if (disposing)
             {
-                if ((components != null))
-                {
-                    components.Dispose();
-                }
+                components?.Dispose();
 
-                if (this.UpdateCheckedItemSizeTimer != null)
-                {
-                    this.UpdateCheckedItemSizeTimer.Dispose();
-                }
+                this.UpdateCheckedItemSizeTimer?.Dispose();
             }
 
             base.Dispose(disposing);

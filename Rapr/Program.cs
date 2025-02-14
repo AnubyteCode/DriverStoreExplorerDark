@@ -67,6 +67,7 @@ namespace Rapr
         public static void Main()
         {
             Application.EnableVisualStyles();
+            MicaHelper.EnableDarkMode();
             Application.SetCompatibleTextRenderingDefault(false);
 
             Trace.AutoFlush = true;

@@ -18,56 +18,57 @@ namespace Rapr
             this.updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
 
             this.InitializeComponent();
+            MicaHelper.ApplyMicaEffect(this);
             this.Text = string.Format(Language.Product_About_Title, Language.Product_Name);
             this.labelVersionInfo.Text = $"v{AssemblyVersion}";
 
-            _ = this.UpdateLatestVersionInfo();
+            //_ = this.UpdateLatestVersionInfo();
         }
 
-        private async Task UpdateLatestVersionInfo()
-        {
-            try
-            {
-                var result = await this.updateManager.GetLatestVersionInfo().ConfigureAwait(false);
+        //private async Task UpdateLatestVersionInfo()
+        //{
+        //    try
+        //    {
+        //        var result = await this.updateManager.GetLatestVersionInfo().ConfigureAwait(false);
 
-                if (result?.Version != null)
-                {
-                    this.labelLink.Invoke(new Action(() =>
-                    {
-                        if (AssemblyVersion >= result.Version)
-                        {
-                            this.labelLink.Text = Language.About_VersionUpToDate;
-                            this.labelLink.Links.Clear();
-                        }
-                        else
-                        {
-                            var versionStr = result.Version.ToString();
-                            this.labelLink.Text = string.Format(Language.About_FoundNewVersion, versionStr, Language.About_Download);
+        //        if (result?.Version != null)
+        //        {
+        //            this.labelLink.Invoke(new Action(() =>
+        //            {
+        //                if (AssemblyVersion >= result.Version)
+        //                {
+        //                    this.labelLink.Text = Language.About_VersionUpToDate;
+        //                    this.labelLink.Links.Clear();
+        //                }
+        //                else
+        //                {
+        //                    var versionStr = result.Version.ToString();
+        //                    this.labelLink.Text = string.Format(Language.About_FoundNewVersion, versionStr, Language.About_Download);
 
-                            var versionStart = this.labelLink.Text.IndexOf(versionStr, 0, StringComparison.Ordinal);
+        //                    var versionStart = this.labelLink.Text.IndexOf(versionStr, 0, StringComparison.Ordinal);
 
-                            if (versionStart >= 0)
-                            {
-                                this.labelLink.Links.Add(new LinkLabel.Link(versionStart, versionStr.Length, result.PageUrl));
-                            }
+        //                    if (versionStart >= 0)
+        //                    {
+        //                        this.labelLink.Links.Add(new LinkLabel.Link(versionStart, versionStr.Length, result.PageUrl));
+        //                    }
 
-                            var linkStart = this.labelLink.Text.IndexOf(Language.About_Download, 0, StringComparison.Ordinal);
+        //                    var linkStart = this.labelLink.Text.IndexOf(Language.About_Download, 0, StringComparison.Ordinal);
 
-                            if (linkStart >= 0)
-                            {
-                                this.labelLink.Links.Add(new LinkLabel.Link(linkStart, Language.About_Download.Length, result.DownloadUrl));
-                            }
-                        }
-                    }));
-                }
-            }
-            catch (AggregateException ex) when (ex.InnerException is HttpRequestException)
-            {
-            }
-            catch (HttpRequestException)
-            {
-            }
-        }
+        //                    if (linkStart >= 0)
+        //                    {
+        //                        this.labelLink.Links.Add(new LinkLabel.Link(linkStart, Language.About_Download.Length, result.DownloadUrl));
+        //                    }
+        //                }
+        //            }));
+        //        }
+        //    }
+        //    catch (AggregateException ex) when (ex.InnerException is HttpRequestException)
+        //    {
+        //    }
+        //    catch (HttpRequestException)
+        //    {
+        //    }
+        //}
 
         #region Assembly Attribute Accessors
 
